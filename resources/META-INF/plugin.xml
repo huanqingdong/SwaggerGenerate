@@ -1,0 +1,41 @@
+<idea-plugin>
+  <id>com.williamlee.plugin.swagger.generate</id>
+  <name>SwaggerGen</name>
+  <version>1.0</version>
+  <vendor email="williamleelol@qq.com" url="https://github.com/WilliamLeeLoL">WilliamLee</vendor>
+
+  <description><![CDATA[
+     Intellij Idea plugin to generate swagger code for a class.<br>
+     Alt + Insert -> swagger generate...
+    ]]></description>
+
+  <change-notes><![CDATA[
+      Add change notes here.<br>
+      <em>most HTML tags may be used</em>
+    ]]>
+  </change-notes>
+
+  <!-- please see http://www.jetbrains.org/intellij/sdk/docs/basics/getting_started/build_number_ranges.html for description -->
+  <idea-version since-build="173.0"/>
+
+  <!-- please see http://www.jetbrains.org/intellij/sdk/docs/basics/getting_started/plugin_compatibility.html
+       on how to target different products -->
+  <!-- uncomment to enable plugin in all products
+  <depends>com.intellij.modules.lang</depends>
+  -->
+
+  <extensions defaultExtensionNs="com.intellij">
+    <!-- Add your extensions here -->
+  </extensions>
+
+  <actions>
+    <!-- Add your actions here -->
+      <action id="SwaggerGeneration" class="com.william.plugin.generate.SwaggerGenerationAction"
+              text="swagger generation..."
+              description="Swagger Generation tool">
+          <add-to-group group-id="GenerateGroup" anchor="after" relative-to-action="DelegateMethods"/>
+          <keyboard-shortcut keymap="$default" first-keystroke="alt INSERT"/>
+      </action>
+  </actions>
+
+</idea-plugin>
