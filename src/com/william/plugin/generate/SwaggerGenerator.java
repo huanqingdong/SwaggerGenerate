@@ -9,7 +9,6 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 import static com.intellij.psi.JavaPsiFacade.getElementFactory;
 
@@ -65,18 +64,13 @@ public class SwaggerGenerator {
             } else {
                 PsiMethod method = (PsiMethod) member;
                 PsiParameterList parameterList = method.getParameterList();
-                StringBuilder sb = new StringBuilder();
-                sb.append("@ApiImplicitParams(value={");
                 PsiParameter[] parameters = parameterList.getParameters();
-                String apiImplicitParam = Arrays.stream(parameters)
-                        .map(param -> "@ApiImplicitParam(name = \"" + param.getName() + "\", value = \"\", dataType =" +
-                                " \"" + param.getType().getCanonicalText() + "\")")
-                        .collect(Collectors.joining(",\n"));
-                sb.append(apiImplicitParam).append("})");
-                PsiAnnotation apiParam = elementFactory.createAnnotationFromText(sb.toString(), method);
-                PsiAnnotation apiOperation = elementFactory.createAnnotationFromText("@ApiOperation(\"\")", method);
-                ownerClass.addBefore(apiOperation, getFirstChild(method));
-                ownerClass.addBefore(apiParam, getFirstChild(method));
+
+                for (PsiParameter parameter : parameters) {
+                    String str = "@ApiParam(name = \"\")";
+                    PsiAnnotation apiParam = elementFactory.createAnnotationFromText(str, parameter);
+                    ownerClass.addBefore(apiParam, getFirstChild(parameter));
+                }
             }
         }
 
