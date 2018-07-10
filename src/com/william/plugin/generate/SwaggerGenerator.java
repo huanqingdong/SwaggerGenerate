@@ -71,6 +71,8 @@ public class SwaggerGenerator {
                     PsiAnnotation apiParam = elementFactory.createAnnotationFromText(str, parameter);
                     ownerClass.addBefore(apiParam, getFirstChild(parameter));
                 }
+                PsiAnnotation apiOperation = elementFactory.createAnnotationFromText("@ApiOperation(\"\")", method);
+                ownerClass.addBefore(apiOperation, getFirstChild(method));
             }
         }
 
